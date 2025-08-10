@@ -21,7 +21,6 @@ Then(
   "the top {int} finishers should be",
   async ({ f1ResultsPage }, count: number, dataTable: DataTable) => {
     // Step: Then the top 3 finishers should be
-
     await f1ResultsPage.getRaceResults(count, dataTable);
   }
 );
