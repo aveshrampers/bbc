@@ -1,4 +1,4 @@
-// Generated from: features\Search.feature
+// Generated from: tests\features\Search.feature
 import { test } from "playwright-bdd";
 
 test.describe('Search for Sport in 2023', () => {
@@ -15,7 +15,7 @@ test.describe('Search for Sport in 2023', () => {
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('features\\Search.feature'),
+  $uri: ({}, use) => use('tests\\features\\Search.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 

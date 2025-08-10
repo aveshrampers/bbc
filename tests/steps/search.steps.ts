@@ -18,7 +18,5 @@ When("I search for {string}", async ({ page }, arg) => {
 Then("I should see at least {int} relevant search results", async ({ page }, arg) => {
   // Step: Then I should see at least 4 relevant search results
   const results = await page.locator(`[data-testid="newport-card"]`).all();
-  console.log(`Number of search results: ${results.length}`);
-  console.log(`Expected at least: ${arg}`);
   expect(results.length).toBeGreaterThanOrEqual(arg);
 });

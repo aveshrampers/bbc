@@ -14,8 +14,8 @@ import { defineBddConfig } from "playwright-bdd";
  */
 
 const testConfig = defineBddConfig({
-  paths: ["./features"],
-  require: ["./steps"],
+  paths: ["./tests/features"],
+  require: ["./tests/steps"],
 });
 export default defineConfig({
   testDir: testConfig,
@@ -36,8 +36,6 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
-    /* Set the viewport size. */
-    viewport: { width: 1920, height: 1080 },
     /* Enable screenshot capturing for each test. */
     screenshot: "only-on-failure",
     baseURL: "https://www.bbc.co.uk",
@@ -47,7 +45,11 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"], headless: false },
+      use: {
+        ...devices["Desktop Chrome"],
+        headless: false,
+        viewport: { width: 1920, height: 1080 },
+      },
     },
 
     /* Test against mobile viewports. */

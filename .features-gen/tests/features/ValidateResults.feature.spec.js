@@ -1,4 +1,4 @@
-// Generated from: features\ValidateResults.feature
+// Generated from: tests\features\ValidateResults.feature
 import { test } from "playwright-bdd";
 
 test.describe('Validate Grand Prix Results', () => {
@@ -15,7 +15,7 @@ test.describe('Validate Grand Prix Results', () => {
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('features\\ValidateResults.feature'),
+  $uri: ({}, use) => use('tests\\features\\ValidateResults.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 
