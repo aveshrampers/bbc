@@ -1,12 +1,12 @@
 // Generated from: tests\features\Search.feature
-import { test } from "playwright-bdd";
+import { test } from "../../../fixtures/fixtures.ts";
 
 test.describe('Search for Sport in 2023', () => {
 
-  test('Validate search returns at least 4 results', async ({ Given, page, When, Then }) => { 
-    await Given('I am on the BBC Sport page', null, { page }); 
-    await When('I search for "Sport in 2023"', null, { page }); 
-    await Then('I should see at least 4 relevant search results', null, { page }); 
+  test('Validate search returns at least 4 results', async ({ Given, searchPage, When, Then }) => { 
+    await Given('I am on the BBC Sport page', null, { searchPage }); 
+    await When('I search for "Sport in 2023"', null, { searchPage }); 
+    await Then('I should see at least 4 relevant search results', null, { searchPage }); 
   });
 
 });

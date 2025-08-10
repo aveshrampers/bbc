@@ -14,6 +14,7 @@ import { defineBddConfig } from "playwright-bdd";
  */
 
 const testConfig = defineBddConfig({
+  importTestFrom: "./fixtures/fixtures.ts",
   paths: ["./tests/features"],
   require: ["./tests/steps"],
 });

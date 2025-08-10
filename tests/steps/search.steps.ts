@@ -1,22 +1,22 @@
 import { createBdd } from "playwright-bdd";
-import { expect } from '@playwright/test';
+import { expect } from "@playwright/test";
+import { test } from "../../fixtures/fixtures"; // Import the test fixture
 
-const { Given, When, Then } = createBdd();
+const { Given, When, Then } = createBdd(test);
 
-Given("I am on the BBC Sport page", async ({ page }) => {
-  await page.goto("/sport");
+Given("I am on the BBC Sport page", async ({ searchPage }) => {
+  await searchPage.navigateToUrl("/sport");
 });
 
-When("I search for {string}", async ({ page }, arg) => {
+When("I search for {string}", async ({ searchPage }, arg) => {
   // Step: When I search for "Sport in 2023"
-  await page.getByRole("link", { name: "Search BBC" }).click();
-  await page
-    .getByRole("textbox", { name: "Search news, topics and more" })
-    .fill(arg);
+  await searchPage.searchArticle(arg);
 });
 
-Then("I should see at least {int} relevant search results", async ({ page }, arg) => {
-  // Step: Then I should see at least 4 relevant search results
-  const results = await page.locator(`[data-testid="newport-card"]`).all();
-  expect(results.length).toBeGreaterThanOrEqual(arg);
-});
+Then(
+  "I should see at least {int} relevant search results",
+  async ({ searchPage }, arg) => {
+    // Step: Then I should see at least 4 relevant search results
+    await searchPage.expectResultsToBeGreaterThanOrEqual(arg);
+  }
+);
