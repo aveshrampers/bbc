@@ -11,13 +11,14 @@ This project contains automated tests for BBC website using Playwright with Type
 ## Project Structure
 
 ```
-├── features/           # Gherkin feature files
-│   ├── Search.feature
-│   └── ValidateResults.feature
-├── steps/             # Step definitions
-│   ├── search.steps.ts
-│   └── ValidateResults.steps.ts
+
 ├── tests/             # Additional test files
+|   ├──features/           # Gherkin feature files
+│   |   ├── Search.feature
+│   |   └── ValidateResults.feature
+|   ├──steps/             # Step definitions
+│       ├── search.steps.ts
+│       └── ValidateResults.steps.ts
 ├── playwright.config.ts    # Playwright configuration
 └── package.json       # Project dependencies
 ```
@@ -73,15 +74,19 @@ The test suite currently includes:
 
 ## Writing Tests
 
-Tests are written in Gherkin syntax using feature files located in the `features` directory. Step definitions are implemented in TypeScript under the `steps` directory.
+Tests are written using Gherkin syntax in `.feature` files located in the `features/` directory. Each step in a feature file is linked to a corresponding implementation in a TypeScript file within `tests/steps/`.
 
-Example feature file:
+### Page Object Model (POM) & Fixtures
+
+This project utilizes the Page Object Model (POM) to create a clear separation between test code and page-specific code.
+
+- **Page Objects**: Located in `tests/pages/`, each class (e.g., `F1ResultsPage.ts`) represents a page or a significant component of the application. It encapsulates the locators and methods needed to interact with that page.
+- **Fixtures**: Defined in `fixtures/fixtures.ts`, custom fixtures are used to initialize Page Object instances (like `f1ResultsPage`) and provide them directly to the step definition functions, simplifying test setup.
+
+Example Gherkin step:
 ```gherkin
-Feature: Search Functionality
-  Scenario: User performs a search
-    Given user is on BBC homepage
-    When user searches for specific content
-    Then relevant results should be displayed
+# features/ValidateResults.feature
+Given I am on the BBC Sport F1 results page
 ```
 
 ## Configuration
@@ -107,7 +112,3 @@ If you encounter any issues:
 2. Check Playwright browser installations
 3. Review the error logs in `test-results` directory
 4. Verify your Node.js version
-
-## License
-
-[Add your license information here]

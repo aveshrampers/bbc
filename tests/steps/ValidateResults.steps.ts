@@ -1,7 +1,6 @@
 import { createBdd } from "playwright-bdd";
 import { DataTable } from "playwright-bdd"; // Add this import for DataTable type
 import { test } from "../../fixtures/fixtures";
-import { expect } from "@playwright/test";
 const { Given, When, Then } = createBdd(test);
 
 Given("I am on the BBC Sport F1 results page", async ({ f1ResultsPage }) => {

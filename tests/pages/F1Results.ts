@@ -1,16 +1,32 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 import { DataTable } from "playwright-bdd";
 
+/**
+ * Represents the BBC Sport Formula 1 Results page.
+ * Encapsulates locators and methods for interacting with this page.
+ */
 export class F1ResultsPage {
+
   readonly page: Page;
+
   readonly datePicker: Locator;
+
   readonly circuitButton: Locator;
+
   readonly raceResultsTable: Locator;
+
   readonly raceResultsRow: Locator;
+
   readonly raceDetails: Locator;
 
+  /**
+   * Initializes a new instance of the F1ResultsPage class.
+   * @param page The Playwright Page object to interact with.
+   */
   constructor(page: Page) {
     this.page = page;
+
+    // Locators
     this.datePicker = this.page.getByTestId("datepicker-date-link-2023");
     this.circuitButton = this.page.getByRole("button", {
       name: "Las Vegas Grand Prix, Las",
@@ -22,6 +38,12 @@ export class F1ResultsPage {
     this.raceDetails = this.page.locator("td div span:nth-child(1)");
   }
 
+  /**
+   * Fetches the race results from the table, validates the count,
+   * and compares the data against the expected results from a DataTable.
+   * @param count The expected number of rows to validate.
+   * @param dataTable The Gherkin DataTable containing the expected race results.
+   */
   async getRaceResults(count: number, dataTable: DataTable) {
     const table = this.raceResultsTable;
     const rows = table.locator(this.raceResultsRow);
@@ -53,17 +75,28 @@ export class F1ResultsPage {
       });
     }
     const expectedData = dataTable.hashes();
+
+    // Assert that the number of rows found matches the number specified in the step.
     expect(actualTableData.length).toBe(count);
+
+    // Assert that the data extracted from the page matches the expected data from the feature file.
     expect(
       actualTableData,
       "Must return the exact race results and summary"
     ).toEqual(expectedData);
   }
 
+  /**
+   * Navigates to a specific race's results by selecting the year and then the circuit.
+   */
   async selectRaceResult() {
     await this.datePicker.click();
     await this.circuitButton.click();
   }
+  /**
+   * Navigates the page to a specific URL path relative to the baseURL.
+   * @param url The URL path to navigate to (e.g., "/sport/formula1/results").
+   */
   async navigateToUrl(url: string) {
     await this.page.goto(url);
   }
